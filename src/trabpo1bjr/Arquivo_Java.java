@@ -6,7 +6,7 @@ import java.io.IOException;
 
 
 //... classe Arquivo (onde vai estar o m�todo para ordernar, etc) ....
-public class Arquivo_Java
+public class Arquivo_Java implements Methods
 {
     private String nomearquivo;
     private RandomAccessFile arquivo;
@@ -109,5 +109,72 @@ public class Arquivo_Java
             codigo = Entrada.leInteger("Digite o c�digo");
         }
     }
+    
+        public void BubbleSort(){
+        int TL2 = filesize();
+        Registro reg1 = new Registro(), reg2 = new Registro();
+        
+        while(TL2 > 1){
+            for(int i=0; i< TL2-1; i++){
+                seekArq(i);
+                reg1.leDoArq(arquivo);
+                reg2.leDoArq(arquivo);
+                if(reg1.getCodigo() > reg2.getCodigo()){
+                    seekArq(i);
+                    reg2.gravaNoArq(arquivo);
+                    reg1.gravaNoArq(arquivo);
+                }
+            }
+            TL2--;
+        }
+    }
+        
+    @Override
+    public void ShakeSort() {
+        int inicio = 0, fim = filesize()-1;
+        Registro reg1 = new Registro(), reg2 = new Registro();
+        
+        while(inicio < fim){
+            for(int i=inicio; i< fim; i++){
+                seekArq(i);
+                reg1.leDoArq(arquivo);
+                reg2.leDoArq(arquivo);
+                if(reg1.getCodigo() > reg2.getCodigo()){
+                    seekArq(i);
+                    reg2.gravaNoArq(arquivo);
+                    reg1.gravaNoArq(arquivo);
+                }          
+            }
+            fim--;
+            for(int i=fim; i > inicio; i--){
+                seekArq(i-1);
+                reg2.leDoArq(arquivo); // pos: (i-1)
+                reg1.leDoArq(arquivo); // pos(i)
+                if(reg1.getCodigo() < reg2.getCodigo()){
+                    seekArq(i-1);
+                    reg1.gravaNoArq(arquivo);
+                    reg2.gravaNoArq(arquivo);
+                }
+            }
+            inicio++;
+        }
+    }
+    
+
+    @Override
+    public void insertionSort() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void SelectionSort() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void binaryInsertionSort() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 
 }

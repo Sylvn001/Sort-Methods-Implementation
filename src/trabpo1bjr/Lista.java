@@ -4,12 +4,10 @@ public class Lista implements Methods{
     private No inicio;
     private No fim;
     
-    @Override
     public void inicializa(){
         inicio = fim = null;
     }
     
-    @Override
     public void inserirNoInicio(int info){
         No no = new No(null, null, info);
         if(this.inicio != null){
@@ -21,7 +19,6 @@ public class Lista implements Methods{
         }
     }
     
-    @Override
     public void inserirNoFinal(int info){
         No no = new No(null, null, info);
         if(this.fim != null){
@@ -33,7 +30,6 @@ public class Lista implements Methods{
         }
     }
     
-    @Override
     public void exibir(){
         No aux = this.inicio;
         while(aux != null){
@@ -43,7 +39,6 @@ public class Lista implements Methods{
         System.out.println("");
     }
     
-    @Override
     public No busca_exaustiva(int info){
         No aux = this.inicio;
         while(aux != null && info != aux.getInfo())
@@ -51,7 +46,6 @@ public class Lista implements Methods{
         return aux;
     }
     
-    @Override
     public void remover(int info){
         No pos = busca_exaustiva(info);
         
@@ -174,5 +168,10 @@ public class Lista implements Methods{
 
             posI = posI.getProx();
         }
+    }
+
+    @Override
+    public void binaryInsertionSort() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

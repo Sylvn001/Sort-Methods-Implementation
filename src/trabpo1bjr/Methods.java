@@ -9,15 +9,9 @@ package trabpo1bjr;
  *
  * @author Aluno
  */
-public interface Methods {
-    public void inicializa();
-    public void inserirNoInicio(int info);
-    public void inserirNoFinal(int info);
-    public void remover(int info);
-    public void exibir();
-    public No busca_exaustiva(int info);
-    
+public interface Methods {    
     public void insertionSort();
+    public void binaryInsertionSort();
     public void BubbleSort();
     public void ShakeSort();
     public void SelectionSort();
