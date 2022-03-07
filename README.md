@@ -1,4 +1,4 @@
 # Search And Sort Methods
 
-## Linked List and File Sort Methods Implementation
+## Linked List and Binary File - Sort Methods Implementation
 
