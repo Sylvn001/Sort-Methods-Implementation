@@ -201,10 +201,10 @@ public class Lista implements Methods{
         return size;
     }
     
-    public No getMeio(No pinicio, int posMeio){
+    public No getMeio(No pinicio, int qtdAndar){
         No aux = pinicio;
         int i=0;
-        while(aux != null && i != posMeio){
+        while(aux != null && i != qtdAndar){
             aux = aux.getProx();
             i++;
         }
@@ -225,7 +225,7 @@ public class Lista implements Methods{
                 pini = pmeio.getProx();
             }
             meio = (inicio+fim) / 2;
-            pmeio = getMeio(pini, meio-inicio);
+            pmeio = getMeio(pini, (meio - inicio));
         }
 
         if(chave > pmeio.getInfo())

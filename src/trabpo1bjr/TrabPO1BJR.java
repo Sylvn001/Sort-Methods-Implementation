@@ -22,13 +22,13 @@ public class TrabPO1BJR {
 //        file.exibirArq();
 //        file.BubbleSort();
 //        file.ShakeSort();
-        file.SelectionSort();
+//        file.SelectionSort();
         file.exibirArq();
     }
     
     public static void main(String[] args) {
-//        executeSortMethodsInNode();
-        executeFileSortMethods();
+        executeSortMethodsInNode();
+//        executeFileSortMethods();
     }
     
 }
