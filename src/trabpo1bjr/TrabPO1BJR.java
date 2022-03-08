@@ -2,17 +2,17 @@ package trabpo1bjr;
 
 public class TrabPO1BJR {
     public static void executeSortMethodsInNode(){
-        Lista lista = new Lista(), l2;
+        Lista lista = new Lista();
         for(int i = 1; i < 10; i++)       
             lista.inserirNoInicio(i);
         
         lista.exibir();
-        //Descomente o metodo que deseja testar
 //        lista.insertionSort();
+        lista.binaryInsertionSort();
 //        lista.SelectionSort();
 //        lista.BubbleSort();
+//        lista.ShakeSort(); 
 
-        lista.ShakeSort(); 
         lista.exibir();
     }
     
@@ -22,6 +22,7 @@ public class TrabPO1BJR {
 //        file.exibirArq();
 //        file.BubbleSort();
 //        file.ShakeSort();
+        file.SelectionSort();
         file.exibirArq();
     }
     

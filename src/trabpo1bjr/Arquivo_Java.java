@@ -110,7 +110,56 @@ public class Arquivo_Java implements Methods
         }
     }
     
-        public void BubbleSort(){
+    
+    @Override
+    public void insertionSort() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void binaryInsertionSort() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void SelectionSort() {
+        int posMenor = 0, i=0, j;
+        Registro regI = new Registro();
+        Registro regJ = new Registro();
+        Registro regMenor = new Registro();
+        
+        while(i < filesize()-1){
+            seekArq(i);
+            regI.leDoArq(arquivo);
+            regMenor = regI;
+            
+            j = i+1;
+            seekArq(j);
+            regJ.leDoArq(arquivo);
+            while(j < filesize()){
+                if(regJ.getCodigo() < regMenor.getCodigo() )    
+                {
+                    regMenor = regJ;
+                    posMenor = j;
+                }
+                regJ.leDoArq(arquivo);
+                j++;
+            }
+            
+            seekArq(posMenor);
+            regI.gravaNoArq(arquivo);
+            seekArq(i);
+            regMenor.gravaNoArq(arquivo);
+            
+            
+            i++;
+        }
+        
+        seekArq(i);
+    }
+
+    
+    public void BubbleSort(){
         int TL2 = filesize();
         Registro reg1 = new Registro(), reg2 = new Registro();
         
@@ -158,23 +207,10 @@ public class Arquivo_Java implements Methods
             }
             inicio++;
         }
-    }
-    
+    }   
 
-    @Override
-    public void insertionSort() {
+    public int binarySearch(int chave) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void SelectionSort() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void binaryInsertionSort() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }    
 
 }

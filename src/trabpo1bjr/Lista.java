@@ -89,6 +89,52 @@ public class Lista implements Methods{
             i = i.getProx();
         }
     }
+    
+    @Override
+    public void binaryInsertionSort() {
+        int aux;
+        No pos, j,i = this.inicio;
+        int tamOrd = 1;
+        
+        while(i != fim){
+            aux = i.getInfo();
+            pos = binarySearch(aux,tamOrd, this.inicio);
+            
+            j = this.inicio;
+            while(j.getInfo() > pos.getInfo())
+                j = j.getAnt();    
+            pos.setInfo(aux);
+        
+            tamOrd++;
+            i = i.getProx();
+        }
+    }
+    
+    @Override
+    public void SelectionSort() {
+	int menor;
+	No posMenor, posI = inicio, posJ;
+
+        while(posI.getProx() != null){
+            posMenor = posI;
+            menor = posI.getInfo();
+
+            posJ = posI.getProx();
+            while(posJ != null){
+                if(posJ.getInfo() < menor) 
+                {
+                    menor = posJ.getInfo();
+                    posMenor = posJ;
+                }
+                posJ = posJ.getProx();
+            }
+
+            posMenor.setInfo(posI.getInfo());
+            posI.setInfo(menor);
+
+            posI = posI.getProx();
+        }
+    }
 
     @Override
     public void BubbleSort() {
@@ -143,35 +189,48 @@ public class Lista implements Methods{
         }
 
     }
-
-    @Override
-    public void SelectionSort() {
-	int menor;
-	No posMenor, posI = inicio, posJ;
-
-        while(posI.getProx() != null){
-            posMenor = posI;
-            menor = posI.getInfo();
-
-            posJ = posI.getProx();
-            while(posJ != null){
-                if(posJ.getInfo() < menor) 
-                {
-                    menor = posJ.getInfo();
-                    posMenor = posJ;
-                }
-                posJ = posJ.getProx();
-            }
-
-            posMenor.setInfo(posI.getInfo());
-            posI.setInfo(menor);
-
-            posI = posI.getProx();
-        }
+    
+    public int length(No inicio, No fim){
+        int size=0;
+        
+        if(inicio == fim)
+            return 1;
+        while(inicio != fim)
+            size++;        
+        
+        return size;
     }
+    
+    public No getMeio(No pinicio, int posMeio){
+        No aux = pinicio;
+        int i=0;
+        while(aux != null && i != posMeio){
+            aux = aux.getProx();
+            i++;
+        }
+        return aux;
+    }
+    
+    public No binarySearch(int chave, int TL, No ptl) {
+        int inicio = 0, fim = TL-1, meio  = fim/2;
+        No pini = this.inicio, pfim = ptl.getAnt();
+        No pmeio = getMeio(pini, meio);
+        
+        while (inicio < fim && chave != pmeio.getInfo()){
+            if(chave < pmeio.getInfo()){
+                fim = meio-1;
+                pfim = pmeio.getAnt();
+            }else{
+                inicio = meio+1;
+                pini = pmeio.getProx();
+            }
+            meio = (inicio+fim) / 2;
+            pmeio = getMeio(pini, meio-inicio);
+        }
 
-    @Override
-    public void binaryInsertionSort() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(chave > pmeio.getInfo())
+            return pmeio.getProx();
+        else
+            return pmeio;
     }
 }
