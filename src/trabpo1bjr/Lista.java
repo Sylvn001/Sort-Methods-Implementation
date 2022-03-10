@@ -96,13 +96,15 @@ public class Lista implements Methods{
         No pos, j,i = this.inicio;
         int tamOrd = 1;
         
-        while(i != fim){
+        while(i != null){
             aux = i.getInfo();
-            pos = binarySearch(aux,tamOrd, this.inicio);
+            pos = binarySearch(aux,tamOrd, i);
             
             j = this.inicio;
-            while(j.getInfo() > pos.getInfo())
-                j = j.getAnt();    
+            while(j.getAnt() != null && j.getInfo() > pos.getInfo()){
+                j.setInfo(j.getAnt().getInfo());
+                j = j.getAnt();
+            }
             pos.setInfo(aux);
         
             tamOrd++;
@@ -204,7 +206,7 @@ public class Lista implements Methods{
     public No getMeio(No pinicio, int qtdAndar){
         No aux = pinicio;
         int i=0;
-        while(aux != null && i != qtdAndar){
+        while(aux != null && i < qtdAndar){
             aux = aux.getProx();
             i++;
         }
@@ -212,8 +214,8 @@ public class Lista implements Methods{
     }
     
     public No binarySearch(int chave, int TL, No ptl) {
-        int inicio = 0, fim = TL-1, meio  = fim/2;
-        No pini = this.inicio, pfim = ptl.getAnt();
+        int inicio = 0, fim = TL, meio  = fim/2;
+        No pini = this.inicio, pfim = ptl;
         No pmeio = getMeio(pini, meio);
         
         while (inicio < fim && chave != pmeio.getInfo()){
