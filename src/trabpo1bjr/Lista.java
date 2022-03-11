@@ -94,14 +94,14 @@ public class Lista implements Methods{
     public void binaryInsertionSort() {
         int aux;
         No pos, j,i = this.inicio;
-        int tamOrd = 1;
+        int tamOrd = 0;
         
         while(i != null){
             aux = i.getInfo();
             pos = binarySearch(aux,tamOrd, i);
             
-            j = this.inicio;
-            while(j.getAnt() != null && j.getInfo() > pos.getInfo()){
+            j = i;
+            while(j != pos){
                 j.setInfo(j.getAnt().getInfo());
                 j = j.getAnt();
             }
@@ -113,7 +113,7 @@ public class Lista implements Methods{
     }
     
     @Override
-    public void SelectionSort() {
+    public void selectionSort() {
 	int menor;
 	No posMenor, posI = inicio, posJ;
 
@@ -139,7 +139,7 @@ public class Lista implements Methods{
     }
 
     @Override
-    public void BubbleSort() {
+    public void bubbleSort() {
         No pi, TL2 = fim;
         int aux;
 
@@ -161,7 +161,7 @@ public class Lista implements Methods{
     }
 
     @Override
-    public void ShakeSort() {
+    public void shakeSort() {
         No pInicio = this.inicio, pIndex, pFim = this.fim;
         int aux;
         
@@ -192,14 +192,14 @@ public class Lista implements Methods{
 
     }
     
-    public int length(No inicio, No fim){
+    public int length(){
         int size=0;
+        No aux = this.inicio;
         
-        if(inicio == fim)
-            return 1;
-        while(inicio != fim)
+        while(aux != null){
+            aux = aux.getProx();
             size++;        
-        
+        }
         return size;
     }
     
@@ -209,6 +209,16 @@ public class Lista implements Methods{
         while(aux != null && i < qtdAndar){
             aux = aux.getProx();
             i++;
+        }
+        return aux;
+    }
+    
+    public No getNoByIndex(int qtdAndar){
+        No aux = inicio; 
+        int i=0;
+        
+        while(aux != null && i < qtdAndar){
+            aux = aux.getProx();
         }
         return aux;
     }
@@ -234,5 +244,42 @@ public class Lista implements Methods{
             return pmeio.getProx();
         else
             return pmeio;
+    }
+
+    @Override
+    public void heapSort() {
+        int pai, FE, FD, TL2 = length(), aux;
+        No pPai, pFE, pFD, maiorF, noTL2;
+        
+        while(TL2 > 0){
+            pai = TL2/2-1;
+            pPai = getNoByIndex(pai);
+            
+            while(pai >= 0 ){
+                FE = pai*2+1;
+                pFE = getNoByIndex(FE);
+                
+                FD = FE+1;
+                pFD = pFE.getProx();
+                
+                maiorF = pFE;
+                if(pFD != null && pFD.getInfo() > pFE.getInfo() )
+                    maiorF = pFE;
+                
+                if(maiorF.getInfo() > pPai.getInfo()){
+                    aux = maiorF.getInfo();
+                    maiorF.setInfo(pPai.getInfo());
+                    pPai.setInfo(aux);
+                }
+                pai--;
+            }
+       
+            TL2--;
+            noTL2 = getNoByIndex(TL2);
+            
+            aux = noTL2.getInfo();
+            noTL2.setInfo(this.inicio.getInfo());
+            inicio.setInfo(aux);
+        }
     }
 }

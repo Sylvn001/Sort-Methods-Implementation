@@ -3,15 +3,16 @@ package trabpo1bjr;
 public class TrabPO1BJR {
     public static void executeSortMethodsInNode(){
         Lista lista = new Lista();
-        for(int i = 1; i < 10; i++)       
+        for(int i = 1; i < 6; i++)       
             lista.inserirNoInicio(i);
         
         lista.exibir();
 //        lista.insertionSort();
-        lista.binaryInsertionSort();
-//        lista.SelectionSort();
-//        lista.BubbleSort();
-//        lista.ShakeSort(); 
+//        lista.binaryInsertionSort();
+//        lista.selectionSort();
+//        lista.bubbleSort();
+//        lista.shakeSort(); 
+        lista.heapSort();
 
         lista.exibir();
     }

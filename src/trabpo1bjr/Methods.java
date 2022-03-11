@@ -12,8 +12,8 @@ package trabpo1bjr;
 public interface Methods {    
     public void insertionSort();
     public void binaryInsertionSort();
-    public void BubbleSort();
-    public void ShakeSort();
-    public void SelectionSort();
-
+    public void bubbleSort();
+    public void shakeSort();
+    public void selectionSort();
+    public void heapSort();
 }

@@ -122,7 +122,7 @@ public class Arquivo_Java implements Methods
     }
 
     @Override
-    public void SelectionSort() {
+    public void selectionSort() {
         int posMenor = 0, i=0, j;
         Registro regI = new Registro();
         Registro regJ = new Registro();
@@ -179,7 +179,7 @@ public class Arquivo_Java implements Methods
     }
         
     @Override
-    public void ShakeSort() {
+    public void shakeSort() {
         int inicio = 0, fim = filesize()-1;
         Registro reg1 = new Registro(), reg2 = new Registro();
         
@@ -212,5 +212,15 @@ public class Arquivo_Java implements Methods
     public int binarySearch(int chave) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }    
+
+    @Override
+    public void bubbleSort() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void heapSort() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
