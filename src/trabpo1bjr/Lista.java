@@ -217,7 +217,8 @@ public class Lista implements Methods{
         No aux = inicio; 
         int i=0;
         
-        while(aux != null && i < qtdAndar){
+        while(aux != null && i != qtdAndar){
+            i++;
             aux = aux.getProx();
         }
         return aux;
@@ -249,37 +250,101 @@ public class Lista implements Methods{
     @Override
     public void heapSort() {
         int pai, FE, FD, TL2 = length(), aux;
-        No pPai, pFE, pFD, maiorF, noTL2;
+        No pPai, pFE, pFD, maiorF, noTL2 = fim;
         
-        while(TL2 > 0){
-            pai = TL2/2-1;
-            pPai = getNoByIndex(pai);
-            
+        while(noTL2.getAnt() != null){
+            pai = TL2/2-1;            
             while(pai >= 0 ){
+                pPai = getNoByIndex(pai);
+
                 FE = pai*2+1;
-                pFE = getNoByIndex(FE);
-                
                 FD = FE+1;
+
+                pFE = getNoByIndex(FE);
                 pFD = pFE.getProx();
                 
                 maiorF = pFE;
-                if(pFD != null && pFD.getInfo() > pFE.getInfo() )
-                    maiorF = pFE;
+                
+                if(FD < TL2 && pFD.getInfo() > maiorF.getInfo() )
+                    maiorF = pFD;
                 
                 if(maiorF.getInfo() > pPai.getInfo()){
-                    aux = maiorF.getInfo();
-                    maiorF.setInfo(pPai.getInfo());
-                    pPai.setInfo(aux);
+                    aux = pPai.getInfo();
+                    pPai.setInfo(maiorF.getInfo());
+                    maiorF.setInfo(aux);
                 }
                 pai--;
             }
        
-            TL2--;
-            noTL2 = getNoByIndex(TL2);
-            
             aux = noTL2.getInfo();
             noTL2.setInfo(this.inicio.getInfo());
             inicio.setInfo(aux);
+            
+            noTL2 = noTL2.getAnt();
+            TL2--;
         }
+    }
+
+    @Override
+    public void shellSort(){
+        int dist = 4, i, j, k, aux, TL = length();
+        No pI, pJ, pK, pDist;
+
+        while(dist > 0)
+        {
+            pI = this.inicio;
+            i =0;
+            while(i < dist)
+            {
+                pJ = pI;
+                j = i;
+                while(j+dist < TL)//Permutacao entre as proximas distancias
+                { 
+                    pDist = getNoByIndexWithInitialValue(pJ, dist, 1); 
+                    if(pJ.getInfo() > pDist.getInfo())
+                    {
+                        aux = pJ.getInfo();
+                        pJ.setInfo(pDist.getInfo());
+                        pDist.setInfo(aux);
+
+                        k = j;
+                        pK = pJ;
+                        pDist = getNoByIndexWithInitialValue(pK , dist, 0); 
+                        while((k - dist) >= 0 && pK.getInfo() < pDist.getInfo()) //Permutacao do anterior
+                        {
+                            aux = pK.getInfo();
+                            pK.setInfo(pDist.getInfo());
+                            pDist.setInfo(aux);
+                            
+                            k = k-dist;
+                            pK = getNoByIndexWithInitialValue(pK , dist, 0); 
+                            pDist = getNoByIndexWithInitialValue(pK , dist, 0); 
+                        }
+                    }              
+                    pJ = getNoByIndexWithInitialValue(pJ, dist, 1);
+                    j = j+dist;
+                }
+                i++;
+            }
+            dist = dist/2;
+        }
+    }
+    
+    public No getNoByIndexWithInitialValue(No noInicio, int qtdAndar, int flag){
+        int i=0; 
+        No aux = noInicio;
+        
+        if(flag == 1){
+            while(aux != null && i < qtdAndar){
+                i++;
+                aux = aux.getProx();
+            }
+        }else{
+            while(aux != null && qtdAndar != 0){
+                aux = aux.getAnt();
+                qtdAndar--;
+            }
+        }
+        return aux;
     }
 }

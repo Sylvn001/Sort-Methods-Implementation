@@ -71,7 +71,7 @@ public class Arquivo_Java implements Methods
         i = 0;
         while (!this.eof())
         {
-            System.out.println("Posicao " + i);
+            System.out.print("Posicao: " + i);
             aux.leDoArq(arquivo);
             aux.exibirReg();
             i++;
@@ -98,14 +98,11 @@ public class Arquivo_Java implements Methods
 
     public void leArq()
     {
-        int codigo, idade;
-        String nome;
+        int codigo;
         codigo = Entrada.leInteger("Digite o c�digo");
         while (codigo != 0)
         {
-            nome = Entrada.leString("Digite o nome");
-            idade = Entrada.leInteger("Digite a idade");
-            inserirRegNoFinal(new Registro(codigo, nome, idade));
+            inserirRegNoFinal(new Registro(codigo));
             codigo = Entrada.leInteger("Digite o c�digo");
         }
     }
@@ -123,26 +120,30 @@ public class Arquivo_Java implements Methods
 
     @Override
     public void selectionSort() {
-        int posMenor = 0, i=0, j;
+        int posMenor = 0, i=0, j, TL = filesize();
         Registro regI = new Registro();
         Registro regJ = new Registro();
         Registro regMenor = new Registro();
         
-        while(i < filesize()-1){
+        while(i < TL){
             seekArq(i);
             regI.leDoArq(arquivo);
-            regMenor = regI;
+            
+            seekArq(i);
+            regMenor.leDoArq(arquivo);
+            posMenor = i;
             
             j = i+1;
-            seekArq(j);
-            regJ.leDoArq(arquivo);
             while(j < filesize()){
+                seekArq(j);
+                regJ.leDoArq(arquivo);
+
                 if(regJ.getCodigo() < regMenor.getCodigo() )    
                 {
-                    regMenor = regJ;
                     posMenor = j;
+                    seekArq(posMenor);
+                    regMenor.leDoArq(arquivo);
                 }
-                regJ.leDoArq(arquivo);
                 j++;
             }
             
@@ -153,13 +154,11 @@ public class Arquivo_Java implements Methods
             
             
             i++;
-        }
-        
-        seekArq(i);
+        }        
     }
 
     
-    public void BubbleSort(){
+    public void bubbleSort(){
         int TL2 = filesize();
         Registro reg1 = new Registro(), reg2 = new Registro();
         
@@ -214,12 +213,12 @@ public class Arquivo_Java implements Methods
     }    
 
     @Override
-    public void bubbleSort() {
+    public void heapSort() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void heapSort() {
+    public void shellSort() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

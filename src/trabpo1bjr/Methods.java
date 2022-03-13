@@ -16,4 +16,5 @@ public interface Methods {
     public void shakeSort();
     public void selectionSort();
     public void heapSort();
+    public void shellSort();
 }
