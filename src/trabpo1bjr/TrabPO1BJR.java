@@ -20,11 +20,15 @@ public class TrabPO1BJR {
     
     public static void executeFileSortMethods(){
         Arquivo_Java file = new Arquivo_Java("d:\\arquivo.dat");
-        file.leArq();
+//        file.leArq();
 //        file.exibirArq();
+//        file.insertionSort();
+//        file.binaryInsertionSort();
+//        file.selectionSort();
 //        file.bubbleSort();
 //        file.shakeSort();
-        file.selectionSort();
+        file.heapSort();
+
         file.exibirArq();
     }
     

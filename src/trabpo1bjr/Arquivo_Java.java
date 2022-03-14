@@ -110,12 +110,57 @@ public class Arquivo_Java implements Methods
     
     @Override
     public void insertionSort() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i=1, pos, TL = filesize(); 
+        Registro regAux = new Registro();
+        Registro regAnt = new Registro();
+        
+        while(i < TL){
+            pos = i;
+            seekArq(i);
+            regAux.leDoArq(arquivo);
+            
+            seekArq(pos-1);
+            regAnt.leDoArq(arquivo);
+            while(pos > 0 && regAux.getCodigo() < regAnt.getCodigo()){
+                seekArq(pos);
+                regAnt.gravaNoArq(arquivo);
+                
+                pos--;
+                seekArq(pos-1);
+                regAnt.leDoArq(arquivo);
+            }
+            
+            seekArq(pos);
+            regAux.gravaNoArq(arquivo);
+                    
+            i++;
+        }
     }
     
     @Override
     public void binaryInsertionSort() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i=1,j, pos, TL = filesize(); 
+        Registro regAux = new Registro();
+        Registro regJ = new Registro();
+        
+        while(i < TL){
+            seekArq(i);
+            regAux.leDoArq(arquivo);
+            pos = binarySearch(regAux, i);
+            
+            j = i;
+            while(j > pos){
+                seekArq(j-1);
+                regJ.leDoArq(arquivo);
+                seekArq(j);
+                regJ.gravaNoArq(arquivo);
+                j--;
+            }
+            
+            seekArq(pos);
+            regAux.gravaNoArq(arquivo);
+            i++;
+        }
     }
 
     @Override
@@ -208,13 +253,80 @@ public class Arquivo_Java implements Methods
         }
     }   
 
-    public int binarySearch(int chave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int binarySearch(Registro chave, int TL) {
+        int inicio = 0, fim = TL-1, meio;
+        Registro regMeio = new Registro();
+
+        meio = fim/2;        
+        seekArq(meio);
+        regMeio.leDoArq(arquivo);
+        
+        while(inicio < fim && chave.getCodigo() != regMeio.getCodigo()){
+            if(chave.getCodigo() > regMeio.getCodigo())
+                inicio = meio +1;
+            else
+                fim = meio - 1;
+            
+            meio = (inicio + fim) /2;
+            seekArq(meio);
+            regMeio.leDoArq(arquivo);
+        }
+        
+        if(chave.getCodigo() > regMeio.getCodigo())
+            return meio+1;
+        else
+            return meio;
     }    
 
     @Override
     public void heapSort() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int posPai = 0, posFD, posFE, TL = filesize(), posMaiorF;
+        Registro reg1 = new Registro(), reg2 = new Registro();
+        while(TL > 0){
+            posPai =  TL / 2 - 1; 
+            
+            while(posPai >= 0){
+                posFE = posPai * 2+1;
+                posFD = posFE+1;
+                seekArq(posFE);
+                reg1.leDoArq(arquivo);
+                seekArq(posFD);
+                reg2.leDoArq(arquivo);
+
+                posMaiorF = posFE;
+                
+                if(posFD < TL && reg1.getCodigo() < reg2.getCodigo()){
+                    posMaiorF = posFD;
+                }
+                
+                seekArq(posMaiorF);
+                reg1.leDoArq(arquivo);
+                seekArq(posPai);
+                reg2.leDoArq(arquivo);
+                
+                if(reg1.getCodigo() > reg2.getCodigo()){
+                    seekArq(posPai);
+                    reg2.gravaNoArq(arquivo);
+                    seekArq(posMaiorF);
+                    reg1.gravaNoArq(arquivo);
+                }
+
+                posPai--;
+            }
+            
+            TL--;
+
+            seekArq(0);
+            reg1.leDoArq(arquivo);    
+            seekArq(TL);
+            reg2.leDoArq(arquivo);
+            
+            seekArq(TL);
+            reg1.gravaNoArq(arquivo);
+            seekArq(0);
+            reg2.gravaNoArq(arquivo);            
+        }
+            
     }
 
     @Override
