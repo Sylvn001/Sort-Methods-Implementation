@@ -288,13 +288,13 @@ public class Arquivo_Java implements Methods
             while(posPai >= 0){
                 posFE = posPai * 2+1;
                 posFD = posFE+1;
+                posMaiorF = posFE;
+                
                 seekArq(posFE);
                 reg1.leDoArq(arquivo);
                 seekArq(posFD);
                 reg2.leDoArq(arquivo);
-
-                posMaiorF = posFE;
-                
+                               
                 if(posFD < TL && reg1.getCodigo() < reg2.getCodigo()){
                     posMaiorF = posFD;
                 }
@@ -306,9 +306,9 @@ public class Arquivo_Java implements Methods
                 
                 if(reg1.getCodigo() > reg2.getCodigo()){
                     seekArq(posPai);
-                    reg2.gravaNoArq(arquivo);
-                    seekArq(posMaiorF);
                     reg1.gravaNoArq(arquivo);
+                    seekArq(posMaiorF);
+                    reg2.gravaNoArq(arquivo);
                 }
 
                 posPai--;

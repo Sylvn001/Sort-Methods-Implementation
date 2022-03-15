@@ -21,7 +21,8 @@ public class TrabPO1BJR {
     public static void executeFileSortMethods(){
         Arquivo_Java file = new Arquivo_Java("d:\\arquivo.dat");
 //        file.leArq();
-//        file.exibirArq();
+        file.exibirArq();
+        System.out.println("");
 //        file.insertionSort();
 //        file.binaryInsertionSort();
 //        file.selectionSort();
