@@ -28,6 +28,7 @@ public class TrabPO1BJR {
 //        file.bubbleSort();
 //        file.shakeSort();
         file.heapSort();
+//        file.shellSort();
 
         file.exibirArq();
     }

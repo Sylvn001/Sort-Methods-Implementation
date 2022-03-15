@@ -331,7 +331,50 @@ public class Arquivo_Java implements Methods
 
     @Override
     public void shellSort() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int dist = 4, i, j, k, TL = filesize();
+        Registro reg = new Registro(), regDist = new Registro();
+        while(dist > 0){
+            i = 0;
+            while( i < dist){
+                j = i;
+                while(j+dist < TL){
+                    seekArq(j);
+                    reg.leDoArq(arquivo);
+                    seekArq(j+dist);
+                    regDist.leDoArq(arquivo);
+                    if(reg.getCodigo() > regDist.getCodigo())
+                    {
+                        seekArq(j);
+                        regDist.gravaNoArq(arquivo);
+                        seekArq(j+dist);
+                        reg.gravaNoArq(arquivo);
+
+                        k = j;
+                        seekArq(k);
+                        reg.leDoArq(arquivo);
+                        seekArq(k-dist);
+                        regDist.leDoArq(arquivo);
+                        while(k - dist >= 0 && reg.getCodigo() < regDist.getCodigo()){   
+                            //swap
+                            seekArq(k);
+                            regDist.gravaNoArq(arquivo);
+                            seekArq(k-dist);
+                            reg.gravaNoArq(arquivo);
+                            
+                            //leitura
+                            k = k - dist;
+                            seekArq(k);
+                            reg.leDoArq(arquivo);
+                            seekArq(k-dist);
+                            regDist.leDoArq(arquivo);
+                        }   
+                    }
+                    j = j+dist;
+                }
+                i++;
+            }
+            dist = dist / 2;
+        }
     }
 
 }
