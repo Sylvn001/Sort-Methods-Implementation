@@ -9,7 +9,7 @@ package trabpo1bjr;
  *
  * @author Aluno
  */
-public interface Methods {    
+public interface Methods {
     public void insertionSort();
     public void binaryInsertionSort();
     public void bubbleSort();
@@ -17,4 +17,9 @@ public interface Methods {
     public void selectionSort();
     public void heapSort();
     public void shellSort();
+    public void mergeSort();
+    public void mergeSort2Way();
+    public void quickSort();
+    public void quickSortPivot();
+    public void countingSort();
 }

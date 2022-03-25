@@ -13,7 +13,9 @@ public class TrabPO1BJR {
 //        lista.bubbleSort();
 //        lista.shakeSort(); 
 //        lista.heapSort();
-        lista.shellSort();
+//        lista.shellSort();
+//        lista.quickSort();
+          lista.quickSortPivot();
 
         lista.exibir();
     }
@@ -21,22 +23,22 @@ public class TrabPO1BJR {
     public static void executeFileSortMethods(){
         Arquivo_Java file = new Arquivo_Java("d:\\arquivo.dat");
 //        file.leArq();
-        file.exibirArq();
-        System.out.println("");
+//        file.exibirArq();
+//        System.out.println("");
 //        file.insertionSort();
 //        file.binaryInsertionSort();
 //        file.selectionSort();
 //        file.bubbleSort();
 //        file.shakeSort();
-        file.heapSort();
+//        file.heapSort();
 //        file.shellSort();
 
         file.exibirArq();
     }
     
     public static void main(String[] args) {
-//        executeSortMethodsInNode();
-        executeFileSortMethods();
+        executeSortMethodsInNode();
+//        executeFileSortMethods();
     }
     
 }

@@ -376,5 +376,159 @@ public class Arquivo_Java implements Methods
             dist = dist / 2;
         }
     }
+    
+    public void quickSP(int inicio, int fim){
+        int i = inicio, j = fim;
+        Registro reg1 = new Registro(), reg2 = new Registro();
+
+        while(i < j)
+        {
+            seekArq(i);
+            reg2.leDoArq(arquivo);
+            seekArq(j);
+            reg2.leDoArq(arquivo);
+
+            while(i < j && reg1.getCodigo() <= reg2.getCodigo()){
+                i++;      
+                seekArq(i);
+                reg1.leDoArq(arquivo);
+            }
+
+            seekArq(i);
+            reg2.gravaNoArq(arquivo);
+            seekArq(j);
+            reg1.gravaNoArq(arquivo);
+
+            seekArq(i);
+            reg1.leDoArq(arquivo);
+            seekArq(j);
+            reg2.leDoArq(arquivo);
+            while(i < j && reg2.getCodigo() >= reg1.getCodigo()){
+                j--;
+                seekArq(j);
+                reg2.leDoArq(arquivo);
+            }
+
+            seekArq(i);
+            reg2.gravaNoArq(arquivo);
+            seekArq(j);
+            reg1.gravaNoArq(arquivo);
+        }
+        if(inicio < i-1)
+            quickSP(inicio, i-1);
+        if(j+1 < fim)
+            quickSP(j+1, fim);
+    }
+
+    public void quickSort(){
+        int inicio = 0, fim = filesize();
+        quickSP(inicio, fim-1);
+    }
+    
+    public void quickWP(int inicio, int fim){
+        int i = inicio, j = fim, meio = inicio + fim / 2;
+        Registro reg1 = new Registro(), reg2 = new Registro(), pivot = new Registro();
+        seekArq(meio);
+        pivot.leDoArq(arquivo);
+
+        while(i < j)
+        {
+            seekArq(i);
+            reg2.leDoArq(arquivo);
+            while(reg1.getCodigo() < pivot.getCodigo()){
+                i++;      
+                seekArq(i);
+                reg1.leDoArq(arquivo);
+            }
+            
+            seekArq(j);
+            reg2.leDoArq(arquivo);
+            while(reg2.getCodigo() > pivot.getCodigo()){
+                j--;
+                seekArq(j);
+                reg2.leDoArq(arquivo);
+            }
+            
+            if(i <= j){                         
+                seekArq(i);
+                reg1.leDoArq(arquivo);
+                seekArq(j);
+                reg2.leDoArq(arquivo);
+                seekArq(i);
+                reg2.gravaNoArq(arquivo);
+                seekArq(j);
+                reg1.gravaNoArq(arquivo);
+                i++;
+                j++;
+            }
+
+        }
+        if(inicio < i-1)
+            quickSP(inicio, j);
+        if(j+1 < fim)
+            quickSP(i, fim);
+    }
+
+    public void quickSortPivot(){
+        int inicio = 0, fim = filesize();
+        quickWP(inicio, fim-1);
+    }
+
+    @Override
+    public void mergeSort() {
+//        Lista lista1 = new Lista(), lista2 = new Lista();
+//        int seq=1;
+//
+//        while(seq < filesize())
+//            particao(vet1, vet2)
+//            fusao(vet1,vet2,seq)
+//            seq = seq*2;
+//        )
+    }
+
+    @Override
+    public void countingSort() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    public void fusao(int ini1, int fim1, int ini2, int fim2, int aux[]){
+//        int k, i = ini1, j = ini2;
+//
+//        while(i <= fim1 && j <= fim2){
+//            if(vet[i] < vet[j])
+//                aux[k++] = vet[i++];
+//            else
+//                aux[k++] = vet[j++;]      
+//        }
+//
+//        while(i <= fim1)
+//            aux[k++] = vet[i++];
+//
+//        while(j <= fim2)
+//            aux[k++] = vet[j++;]
+//
+//        for(i=0; i < k; i++){
+//            vet[i+ini1] = aux[i];
+//        }
+
+    }
+
+    public void merge2(int esq, int dir, int vet[]){
+//        if(esq < dir){
+//           int meio = (esq + dir) / 2;
+//           merge2(esq, meio, aux);
+//           merge2(meio+1, dir, aux);
+//           fusao(esq, meio, meio+1, dir, aux);
+//           //   ini1  fim1  ini2    fim2 
+//        }
+    }
+
+
+    @Override
+    public void mergeSort2Way() {
+//        int aux[] = new int[TL];
+//        merge2(0, TL-1, aux);
+    }
 
 }
