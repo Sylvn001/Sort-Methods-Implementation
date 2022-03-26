@@ -223,6 +223,17 @@ public class Lista implements Methods{
         }
         return aux;
     }
+    
+    public int sizeWithStartAndEnd(No inicio, No fim){
+        int i=0;
+        No aux = inicio;
+        
+        while(aux != fim){
+            i++;
+            aux = aux.getProx();
+        }
+        return i;
+    }
 
     public No binarySearch(int chave, int TL, No ptl) {
         int inicio = 0, fim = TL, meio  = fim/2;
@@ -379,37 +390,41 @@ public class Lista implements Methods{
         quickSP(inicio, fim);
     }
     
-    public void quickWP(No posInicio, No posFim){
-        int aux, meio; 
-        No i = posInicio, j = posFim, pivot; 
-        meio = (0 + length()) / 2 ;
-        System.out.println(meio);
-        pivot = getMeio(posInicio, meio);
+    public void quickWP(int ini, int fim){
+        int i=ini, j=fim, meio = (ini+fim)/2, aux;
+        No noI = getNoByIndex(i), noJ = getNoByIndex(j), pivot = getNoByIndex(meio);
         
-        while(i != j){
-            while(i.getInfo() < pivot.getInfo())
-                i = i.getProx();
-            while(j.getInfo() > pivot.getInfo())
-                j = j.getAnt();
+        while(i < j){
+            while(noI.getProx() != null && noI.getInfo() < pivot.getInfo()){
+                noI = noI.getProx();             
+                i++;
+            }
+            while(noJ.getAnt() != null && noJ.getInfo() > pivot.getInfo()){
+                noJ = noJ.getAnt();
+                j++;
+            }
             
-            if(i != j){
-                aux = i.getInfo();
-                i.setInfo(j.getInfo());
-                j.setInfo(aux);
-                i = i.getProx();
-                j = j.getAnt();
+            if(i <= j){
+                aux = noI.getInfo();
+                noI.setInfo(noJ.getInfo());
+                noJ.setInfo(aux);    
+                
+                noI = noI.getProx();
+                noJ = noJ.getAnt();
+                i++;
+                j++;
             }
         }
-        if(posInicio != i)
-            quickWP(posInicio, i.getAnt());
-        if(j != posFim)
-           quickWP(j.getProx(), posFim);
+        if(ini < j)
+            quickWP(ini, j);
+        if(i < fim)
+           quickWP(i, fim);
     }
     
     @Override
     public void quickSortPivot() {
         No inicio = this.inicio, fim = this.fim;
-        quickWP(inicio, fim);
+        quickWP(0, length()-1);
     }
     
     public void particao(){
