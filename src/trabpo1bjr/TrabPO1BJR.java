@@ -3,7 +3,7 @@ package trabpo1bjr;
 public class TrabPO1BJR {
     public static void executeSortMethodsInNode(){
         Lista lista = new Lista();
-        for(int i = 1; i <= 12; i++)       
+        for(int i = 1; i <= 16; i++)       
             lista.inserirNoInicio(i);
         
         lista.exibir();
@@ -15,8 +15,11 @@ public class TrabPO1BJR {
 //        lista.heapSort();
 //        lista.shellSort();
 //        lista.quickSort();
-          lista.quickSortPivot();
-
+//        lista.quickSortPivot();
+//        lista.mergeSort();
+//        lista.mergeSort2Way();
+//        lista.countingSort();
+        lista.timSort();
         lista.exibir();
     }
     
@@ -32,13 +35,14 @@ public class TrabPO1BJR {
 //        file.shakeSort();
 //        file.heapSort();
 //        file.shellSort();
-
+//        file.quickSort();
+        file.quickSortPivot();
         file.exibirArq();
     }
     
     public static void main(String[] args) {
-        executeSortMethodsInNode();
-//        executeFileSortMethods();
+//        executeSortMethodsInNode();
+        executeFileSortMethods();
     }
     
 }

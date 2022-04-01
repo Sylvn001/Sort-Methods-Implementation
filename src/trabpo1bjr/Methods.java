@@ -17,9 +17,9 @@ public interface Methods {
     public void selectionSort();
     public void heapSort();
     public void shellSort();
-    public void mergeSort();
-    public void mergeSort2Way();
     public void quickSort();
     public void quickSortPivot();
+    public void mergeSort();
+    public void mergeSort2Way();
     public void countingSort();
 }
