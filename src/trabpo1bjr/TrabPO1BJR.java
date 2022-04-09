@@ -18,7 +18,11 @@ public class TrabPO1BJR {
 //        lista.quickSortPivot();
 //        lista.mergeSort();
 //        lista.mergeSort2Way();
-//        lista.countingSort();
+//        lista.countingSort(); 
+//        lista.bucketSort();
+//        lista.radixSort();
+//          lista.combSort();
+          lista.gnomeSort();;
         lista.timSort();
         lista.exibir();
     }
@@ -36,13 +40,13 @@ public class TrabPO1BJR {
 //        file.heapSort();
 //        file.shellSort();
 //        file.quickSort();
-        file.quickSortPivot();
+//        file.quickSortPivot();
         file.exibirArq();
     }
     
     public static void main(String[] args) {
-//        executeSortMethodsInNode();
-        executeFileSortMethods();
+        executeSortMethodsInNode();
+//        executeFileSortMethods();
     }
     
 }

@@ -643,158 +643,115 @@ public class Lista implements Methods{
         }
   
     }
-//    
-//    public void bucket_sort(int baldes) {
-//        int Nmax = (max()- 1) / baldes;
-//        int aux;
-//        No naux;
-//        Lista[] balde = new Lista[Nmax];
-//        for (int i = 0; i < balde.length; i++) {
-//            balde[i] = new Lista();
-//        }
-//        naux = inicio;
-//        while (naux != null) {
-//            aux = naux.getInfo();
-//            balde[(aux - 1) / (Nmax + 1)].inserirNoInicio(aux);
-//            naux = naux.getProx();
-//        }
-//        for (int i = 0; i < balde.length; i++) {
-//            insercao_direta_Bucket(balde[i]);
-//        }
-//        inicializa();
-//        No auxn;
-//        for (int j = 0; j < balde.length; j++) {
-//            auxn = balde[j].inicio;
-//            while (auxn != null) {
-//                inserirNoFinal(auxn.getInfo());
-//                auxn = auxn.getProx();
-//            }
-//        }
-//    }
-//
-//    private void insercao_direta_Bucket(Lista balde) {
-//        No pos = null;
-//        int aux = 0;
-//
-//        for (No i = balde.inicio; i != null; i = i.getProx()) {
-//            aux = i.getInfo();
-//            pos = i;
-//
-//            while (pos != balde.inicio && aux < pos.getAnt().getInfo()) {
-//                pos.setInfo(pos.getAnt().getInfo());
-//                pos = pos.getAnt();
-//            }
-//
-//            pos.setInfo(aux);
-//        }
-//    }
+    
+    public void bucketSort() {
+        /*
+            WIKI: https://pt.wikipedia.org/wiki/Bucket_sort#Exemplo_em_Java_com_LinkedList
+           ~ ~ https://www.youtube.com/watch?v=VuXbEb5ywrU
+            
+        */
+        int num_bucket = max() / 3, pos, i, j;
+        No noAux;
+        
+        Lista bucket[] = new Lista[num_bucket];
+        for (i = 0; i < num_bucket; i++) 
+            bucket[i] = new Lista();
+                
+        noAux = inicio;
+        while (noAux != null) {
+            pos = (noAux.getInfo() - 1) / (num_bucket);
+            bucket[pos].inserirNoInicio(noAux.getInfo());
+            noAux = noAux.getProx();
+        }
+        
+        this.inicializa();
+        No auxn;
+        
+        j=0;
+        while (j < num_bucket) {
+            auxn = bucket[j].inicio;
+            while (auxn != null) {
+                this.inserirNoFinal(auxn.getInfo());
+                auxn = auxn.getProx();
+            }
+            j++;
+        }
+    }
 
-//    public void radix_sort() {
-//        int m = max();
-//        for (int exp = 1; m / exp > 0; exp *= 10) {
-//            count_sort_raix(exp);
-//        }
-//    }
-//
-//    private void count_sort_raix(int exp) {
-//        int size = length();
-//        int range = 10;
-//
-//        int count[] = new int[range];
-//
-//        Lista saida = new Lista();
-//
-//        for (int i = 0; i < size; i++) {
-//            saida.inserirNoFinal(0);
-//        }
-//
-//        for (int i = 0; i < size; i++) {
-//            count[(get(i).getInfo() / exp) % range]++;
-//        }
-//        for (int i = 1; i < range; i++) {
-//            count[i] += count[i - 1];
-//        }
-//        for (int i = size - 1; i >= 0; i--) {
-//            saida.set(count[(get(i).getInfo() / exp) % range] - 1, get(i).getInfo());
-//            count[(get(i).getInfo() / exp) % range]--;
-//        }
-//        No a1 = inicio;
-//        No a2 = saida.inicio;
-//        while (a2 != null) {
-//            a1.setInfo(a2.getInfo());
-//            a1 = a1.getProx();
-//            a2 = a2.getProx();
-//        }
-//    }
-//
-//    public void comb_sort() {
-//        boolean trocou = false;
-//        int size = length();
-//        int gap = size;
-//        No aux1;
-//        No aux2;
-//        int a;
-//        while (gap != 1 || trocou) {
-//            gap = (gap * 10) / 13;
-//            gap = (gap < 1) ? 1 : gap;
-//
-//            trocou = false;
-//            for (int i = 0; i < size - gap; i++) {
-//                aux1 = get(i);
-//                aux2 = get(i + gap);
-//                if (aux1.getInfo() > aux2.getInfo()) {
-//                    a = aux1.getInfo();
-//                    aux1.setInfo(aux2.getInfo());
-//                    aux2.setInfo(a);
-//                    trocou = true;
-//                }
-//            }
-//        }
-//    }
-//
-//    public void gnome_sort() {
-//        int size = length();
-//        int temp;
-//        No aux;
-//        No aux2;
-//        int index = 0;
-//
-//        while (index < size) {
-//            if (index == 0) {
-//                index++;
-//            }
-//            aux = get(index);
-//            aux2 = get(index - 1);
-//            if (aux.getInfo() >= aux2.getInfo()) {
-//                index++;
-//            } else {
-//                temp = aux.getInfo();
-//                aux.setInfo(aux2.getInfo());
-//                aux2.setInfo(temp);
-//                index--;
-//            }
-//        }
-//    }
-//
+
+    @Override
+    public void radixSort() { 
+
+    }
+
+    public void combSort() {
+        /*
+            Wiki: https://pt.wikipedia.org/wiki/Comb_sort
+        */
+        int TL = length(), i=0, aux;
+        int gap = (int) (TL);
+        No noI, noJ;
+        
+        while (gap > 0 && i != TL-1) {
+            noI = inicio;
+            while((i+gap) < TL) {
+                noJ = getNoByIndex(i+gap);
+                
+                if (noI.getInfo() > noJ.getInfo()) {
+                    aux = noI.getInfo();
+                    noI.setInfo(noJ.getInfo());
+                    noJ.setInfo(aux);
+                }
+                i++;
+                noI = noI.getProx();
+            }
+            gap = (int) (gap / 1.3);
+        }
+    }
+
+    public void gnomeSort() {
+        /*
+        Wiki: https://en.wikipedia.org/wiki/Gnome_sort
+        */
+        int size = length();
+        int temp;
+        No aux;
+        No aux2;
+        int i = 0;
+
+        while (i < size-1) {
+            aux = this.inicio;
+            aux2 = aux.getAnt();
+            if (aux.getInfo() >= aux2.getInfo()) 
+                i++;
+            else {
+                temp = aux.getInfo();
+                aux.setInfo(aux2.getInfo());
+                aux2.setInfo(temp);
+                i--;
+            }
+        }
+    }
+
     public void timSort() {
         int n = length();
-        int tim_tam = 32;
+        int RUN = 32;
         
         /*
-        TimSort use insertion sort and merge sot. InsertionSort is used to sort a partition of structure, and merge join the partitions, 
-        Wiki: https://deinfo.uepg.br/~alunoso/2019/AEP/TIMSORT/REA-TimSort.htm
+            TimSort use insertion sort and merge sot. InsertionSort is used to sort a partition of structure, and merge join the partitions, 
+            Wiki: https://deinfo.uepg.br/~alunoso/2019/AEP/TIMSORT/REA-TimSort.htm
         */
 
-        for (int i = 0; i < n; i += tim_tam) {
-            timInsertionSort(i, Math.min((i + 31), (n - 1)));
-        }
-
-        for (int size = tim_tam; size < n; size = 2 * size) {
+        for (int i = 0; i < n; i += RUN) 
+            timInsertionSort(i, (i + Math.min(i+RUN, n-1)));
+        
+   
+        for (int size = RUN; size < n; size = 2 * size) {
             for (int left = 0; left < n; left += 2 * size) {
                 int mid = left + size - 1;
                 int right = Math.min((left + 2 * size - 1), (n - 1));
 
-                merge_tim(left, mid, right);
+                mergeTimSort(left, mid, right);
             }
         }
 
@@ -818,14 +775,12 @@ public class Lista implements Methods{
         }
     }
   
- 
-    private void merge_tim(int l, int m, int r) {
-        int len1 = m - l + 1, len2 = r - m, x;
+    private void mergeTimSort(int l, int m, int r) {
+        int len1 = m - l + 1, len2 = r - m, x=0, i=0, j=0, k=l;
         int[] left = new int[len1];
         int[] right = new int[len2];
-                
-        x=0;
         No aux = getNoByIndex(l+x);
+        
         while(x < len1) {
             left[x] = aux.getInfo();
             aux = aux.getProx();
@@ -835,37 +790,27 @@ public class Lista implements Methods{
         x=0;        
         aux = getNoByIndex(m + l + x);
         while(x < len2) {
-            right[x] = aux.getInfo();
+            right[x++] = aux.getInfo();
             aux = aux.getProx();
-            x++;
         }
-
-        int i = 0;
-        int j = 0;
-        int k = l;
         
         aux = getNoByIndex(k);
         while (i < len1 && j < len2) {
-            if (left[i] <= right[j]) {
-                aux.setInfo(left[i]);
-                i++;
-            } else {
-                aux.setInfo(right[j]);
-                j++;
-            }
+            if (left[i] <= right[j]) 
+                aux.setInfo(left[i++]);
+            else 
+                aux.setInfo(right[j++]);
             k++;
         }
 
         while (i < len1) {
-            aux.setInfo(left[i]);
+            aux.setInfo(left[i++]);
             k++;
-            i++;
         }
 
         while (j < len2) {
-            aux.setInfo(right[j]);
+            aux.setInfo(right[j++]);
             k++;
-            j++;
         }
     }
     

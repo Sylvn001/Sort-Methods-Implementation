@@ -22,4 +22,9 @@ public interface Methods {
     public void mergeSort();
     public void mergeSort2Way();
     public void countingSort();
+    public void bucketSort();
+    public void radixSort();
+    public void combSort();
+    public void gnomeSort();
+    public void timSort();
 }
